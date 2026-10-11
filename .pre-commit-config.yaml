@@ -1,0 +1,22 @@
+# Hooks locales antes de cada commit. Instalar con: pre-commit install
+# Actualizar versiones con: pre-commit autoupdate
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks          # secretos en lo que vas a commitear (usa .gitleaks.toml)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: check-merge-conflict
+      - id: forbid-new-submodules
+  - repo: local
+    hooks:
+      - id: forbid-env-files
+        name: Bloquear .env y ficheros de credenciales
+        entry: Ficheros sensibles; usa .env.example o añádelos a .gitignore
+        language: fail
+        files: '(^|/)(\.env(\.(?!example$)[^/]+)?|mcp\.json|id_(rsa|ed25519)|.*\.(pem|key|p12|pfx|keystore|jks))$'
