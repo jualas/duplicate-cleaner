@@ -7,9 +7,9 @@ import pytest
 
 pytest.importorskip("textual")
 
-from textual.widgets import DataTable  # noqa: E402
+from textual.widgets import DataTable
 
-from duplicate_cleaner.tui.app import DuplicateCleanerTui  # noqa: E402
+from duplicate_cleaner.tui.app import DuplicateCleanerTui
 
 
 def write_file(path: Path, content: bytes) -> None:
