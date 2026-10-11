@@ -235,6 +235,14 @@ class DuplicateCleanerTui(App):
             return
         self._show_group(event.list_view.index or 0)
 
+    @on(ListView.Highlighted, "#groups")
+    def on_group_highlighted(self, event: ListView.Highlighted) -> None:
+        # Con ↑/↓ el panel de archivos sigue al grupo resaltado, sin esperar a Enter.
+        index = event.list_view.index
+        if index is None or index == self._active_group:
+            return
+        self._show_group(index)
+
     def action_toggle_file(self) -> None:
         if not self._result:
             return
